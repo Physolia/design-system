@@ -2,6 +2,7 @@ import { CloseIcon, CloseIconThin } from '../Icons';
 import React from 'react';
 import classNames from 'classnames';
 import uniqueId from 'lodash/uniqueId';
+import { t } from '../i18n';
 
 const actionableKeys = ['Enter', 'Space', 'Backspace', 'Delete'];
 
@@ -37,10 +38,6 @@ export interface FilterChipProps {
 }
 
 export class FilterChip extends React.Component<FilterChipProps> {
-  static defaultProps = {
-    ariaClearLabel: 'Remove',
-  };
-
   constructor(props: FilterChipProps) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
@@ -78,7 +75,9 @@ export class FilterChip extends React.Component<FilterChipProps> {
         id={id || uniqueId(`filter_`)}
         onClick={this.handleClick}
         onKeyDown={this.handleKeyDown}
-        aria-label={`${label} . ${ariaClearLabel} ${label} filter`}
+        aria-label={`${label} . ${
+          ariaClearLabel ?? t('filterChip.ariaClearLabel')
+        } ${label} filter`}
       >
         <span className="ds-c-filter-chip__label">{label}</span>
         <span className={iconContainerClassNames}>
